@@ -24,7 +24,7 @@ Set up project :
   
   1) Clone the project
   
-       $ git clone https://github.com/iamon3/Spring3HibernateMaven.git
+       $ git clone https://github.com/iamon3/free.pizzaapp.git
       
   2) Install the project
       
@@ -47,5 +47,5 @@ Set up project :
   5)  Test the web app
       Open your favorite browser and enter following URL
       
-       http://localhost:8080/Spring3HibernateMaven/index
+       http://localhost:8080/freepizzaapp/index
   
