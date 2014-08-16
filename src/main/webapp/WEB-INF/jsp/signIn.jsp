@@ -26,7 +26,7 @@
 
 <h2>Sign In</h2>
 
-<form:form method="post" action="signIn.html" commandName="user">
+<form:form method="post" action="signIn.html" modelAttribute="user">
 
 	<table>
 	<tr>

@@ -7,20 +7,26 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.ui.ModelMap;
 
 import com.form.User;
+
+import java.util.Map;
+
 /**
  */
 @Controller
 public class SignUpController {
 
     @RequestMapping("/signUp")
-    public String getSignUpForm(){
+    public String getSignUpForm(Map<String, Object> map){
+        map.put("user", new User());
         return "signUp";
     }
 
     @RequestMapping(value = "/signUp", method=RequestMethod.POST)
-    public String addUser(User user, BindingResult result){
+    public String addUser(@ModelAttribute("user") User user, BindingResult result){
         return "signIn";
     }
 }

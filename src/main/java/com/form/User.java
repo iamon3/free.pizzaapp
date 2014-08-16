@@ -3,13 +3,14 @@ package com.form;
 import org.springframework.stereotype.Component;
 /**
  */
-@Component
 public class User {
-    private String id;
+
     private String name;
     private String password;
     private String email;
 
+
+    private String id;
     public String getId() {
         return id;
     }
