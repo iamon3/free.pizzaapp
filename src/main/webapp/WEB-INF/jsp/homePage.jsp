@@ -24,7 +24,7 @@
 </head>
 <body>
 
-<h2>Whats up dude</h2>
+<h2>Whats up dude ${email} </h2>
 
 </body>
 </html>

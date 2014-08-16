@@ -1,9 +1,13 @@
 package com.util.clients;
 
+import java.net.URI;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpDelete;
@@ -22,6 +26,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 import com.form.User;
 
+import com.util.PizzaAPIs;
 import static com.util.PizzaAPIs.HTTP_HEADER_ACCEPT;
 import static com.util.PizzaAPIs.HTTP_HEADER_CONTENT_TYPE;
 import static com.util.PizzaAPIs.MEDIA_TYPE_APPLICATION_JSON;
@@ -31,8 +36,8 @@ import static com.util.PizzaAPIs.*;
  */
 public class UserHttpClient {
 
-    public String createUser(User user) throws IOException {
-
+    public User createUser(User user) throws IOException {
+        User signedUpUser = null;
         String responseContent = "";
         CloseableHttpClient httpClient = getHttpClient();
         HttpResponse response = null;
@@ -47,10 +52,9 @@ public class UserHttpClient {
             // Create JSON body required by POST document API call
             JSONObject jsonBody = new JSONObject();
             String userJson ="";
-                ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-                userJson = ow.writeValueAsString(user);
-                //userJson = jsonBody.valueToString(user);
-                System.out.println(">>>>>>> User json : " + userJson);
+            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+            userJson = ow.writeValueAsString(user);
+            System.out.println("User json : " + userJson);
 
             BasicHttpEntity basicHttpEntity = new BasicHttpEntity();
             basicHttpEntity.setContent(IOUtils.toInputStream(userJson));
@@ -58,17 +62,21 @@ public class UserHttpClient {
 
             // Make a POST HTTP call
             response = httpClient.execute(httpPost);
-
             HttpEntity entity = response.getEntity();
-            InputStream responseStream = response.getEntity().getContent();
-
+            InputStream responseStream = entity.getContent();
             if (responseStream != null) {
                 responseContent = IOUtils.toString(responseStream);
                 System.out.println("Response Content : " + responseContent);
             }
-            System.out.println("Response Status: " + response.getStatusLine());
             if (entity != null) {
                 System.out.println("Response entity : " + entity);
+            }
+
+            System.out.println("Response Status: " + response.getStatusLine());
+            if(HTTP_STATUS_OK == response.getStatusLine().getStatusCode()){
+                if(null != responseContent && "" != responseContent.trim()){
+                    signedUpUser = new ObjectMapper().readValue(responseStream, User.class);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -76,8 +84,47 @@ public class UserHttpClient {
         finally {
             httpClient.close();
         }
-        return responseContent;
-  }
+        return signedUpUser;
+    }
+
+    public User authenticateUser(String email, String password) throws IOException {
+        User authenticatedUser = null;
+        String responseContent = "";
+        CloseableHttpClient httpClient = getHttpClient();
+        HttpResponse response = null;
+
+        try {
+            HttpGet httpGet = new HttpGet(getAuthenticateUserApi(email, password));
+
+            // Add HTTP headers to HTTP request
+            httpGet.addHeader(HTTP_HEADER_ACCEPT, MEDIA_TYPE_APPLICATION_JSON);
+
+            // Make a POST HTTP call
+            response = httpClient.execute(httpGet);
+            HttpEntity entity = response.getEntity();
+            InputStream responseStream = entity.getContent();
+            //if (responseStream != null) {
+              //  responseContent = IOUtils.toString(responseStream);
+                //System.out.println("Response Content : " + responseContent);
+            //}
+            if (entity != null) {
+                System.out.println("Response entity : " + entity);
+            }
+
+            System.out.println("Response Status: " + response.getStatusLine());
+            if(HTTP_STATUS_OK == response.getStatusLine().getStatusCode()){
+                if(null != responseStream){
+                    authenticatedUser = new ObjectMapper().readValue(responseStream, User.class);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            httpClient.close();
+        }
+        return authenticatedUser;
+    }
 
     /**
      * Returns an instance of Apache's ClosableHttpClient.
