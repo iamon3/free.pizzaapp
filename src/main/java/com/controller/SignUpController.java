@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.ui.ModelMap;
 
-import com.form.User;
 
+import com.form.User;
+import com.util.clients.UserHttpClient;
+
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -27,6 +30,12 @@ public class SignUpController {
 
     @RequestMapping(value = "/signUp", method=RequestMethod.POST)
     public String addUser(@ModelAttribute("user") User user, BindingResult result){
+        UserHttpClient userHttpClient = new UserHttpClient();
+        try {
+            userHttpClient.createUser(user);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return "signIn";
     }
 }
