@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import javax.servlet.http.HttpServletRequest;
 
 import com.service.UserService;
 
@@ -29,9 +30,10 @@ public class SignInController {
     }
 
     @RequestMapping(value = "/signIn", method=RequestMethod.POST)
-    public String signInUser(Map<String, Object> map, @ModelAttribute("user") User user, BindingResult result){
+    public String signInUser(HttpServletRequest httpServletRequest, Map<String, Object> map, @ModelAttribute("user") User user, BindingResult result){
         User authenticatedUser = userService.authenticateUser(user);
-        map.put("email", authenticatedUser.getEmail());
+        //map.put("email", authenticatedUser.getEmail());
+        httpServletRequest.getSession().setAttribute("email", authenticatedUser.getEmail());
         return "homePage";
     }
 }
