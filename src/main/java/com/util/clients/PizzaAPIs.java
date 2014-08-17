@@ -12,8 +12,10 @@ public abstract class PizzaAPIs {
     public static String API_SERVER_HOST_END_POINT = "localhost:9090/freeapis";
     public static String PIZZAS_RESOURCE = "/pizzas";
     public static String USERS_RESOURCE = "/users";
+    public static String USER_TRANSACTIONS_RESOURCE = "/transactions";
     public static String TOPPINGS_RESOURCE = "/toppings";
     public static String USER_AUTHENTICATE_RESOURCE = "/authenticate";
+
 
     public static final String HTTP_HEADER_ACCEPT = "Accept";
     public static final String HTTP_HEADER_CONTENT_TYPE = "Content-Type";
@@ -58,6 +60,21 @@ public abstract class PizzaAPIs {
                     .setParameter(PASSWORD, password).build();
 
 
+        }
+        catch (java.net.URISyntaxException ue){
+            ue.printStackTrace();
+        }
+        return uri;
+    }
+
+    public static URI getUserTransactionsApi(String email, String userId){
+        URI uri = null;
+        try {
+            uri = new URIBuilder()
+                    .setScheme(URI_SCHEME_HTTP)
+                    .setHost(API_SERVER_HOST_END_POINT)
+                    .setPath(USERS_RESOURCE + userId + USER_TRANSACTIONS_RESOURCE)
+                    .setParameter(EMAIL, email).build();
         }
         catch (java.net.URISyntaxException ue){
             ue.printStackTrace();

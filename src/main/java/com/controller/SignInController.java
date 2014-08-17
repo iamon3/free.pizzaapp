@@ -34,6 +34,7 @@ public class SignInController {
         User authenticatedUser = userService.authenticateUser(user);
         //map.put("email", authenticatedUser.getEmail());
         httpServletRequest.getSession().setAttribute("email", authenticatedUser.getEmail());
-        return "homePage";
+        httpServletRequest.getSession().setAttribute("id", authenticatedUser.getId());
+        return "redirect:/homePage";
     }
 }

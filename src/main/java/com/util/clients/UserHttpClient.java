@@ -24,7 +24,10 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
+import org.codehaus.jackson.type.TypeReference;
+
 import com.form.User;
+import com.form.Transaction;
 
 import com.util.PizzaAPIs;
 import static com.util.PizzaAPIs.HTTP_HEADER_ACCEPT;
@@ -124,6 +127,96 @@ public class UserHttpClient {
             httpClient.close();
         }
         return authenticatedUser;
+    }
+
+    public Transaction saveUserTransaction(String email, String id, Transaction transaction) throws IOException {
+        Transaction savedTransaction = null;
+        String responseContent = "";
+        CloseableHttpClient httpClient = getHttpClient();
+        HttpResponse response = null;
+
+        try {
+            HttpPost httpPost = new HttpPost(getUserTransactionsApi(email, id));
+
+            // Add HTTP headers to HTTP request
+            httpPost.addHeader(HTTP_HEADER_ACCEPT, MEDIA_TYPE_APPLICATION_JSON);
+            httpPost.addHeader(HTTP_HEADER_CONTENT_TYPE, MEDIA_TYPE_APPLICATION_JSON);
+
+            // Create JSON body required by POST document API call
+            JSONObject jsonBody = new JSONObject();
+            String transactionJson ="";
+            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+            transactionJson = ow.writeValueAsString(transaction);
+            System.out.println("Transaction json : " + transactionJson);
+
+            BasicHttpEntity basicHttpEntity = new BasicHttpEntity();
+            basicHttpEntity.setContent(IOUtils.toInputStream(transactionJson));
+            httpPost.setEntity(basicHttpEntity);
+
+            // Make a POST HTTP call
+            response = httpClient.execute(httpPost);
+            HttpEntity entity = response.getEntity();
+            InputStream responseStream = entity.getContent();
+            if (responseStream != null) {
+                responseContent = IOUtils.toString(responseStream);
+                System.out.println("Response Content : " + responseContent);
+            }
+            if (entity != null) {
+                System.out.println("Response entity : " + entity);
+            }
+
+            System.out.println("Response Status: " + response.getStatusLine());
+            if(HTTP_STATUS_OK == response.getStatusLine().getStatusCode()){
+                if(null != responseContent && "" != responseContent.trim()){
+                    savedTransaction = new ObjectMapper().readValue(responseStream, Transaction.class);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            httpClient.close();
+        }
+        return savedTransaction;
+    }
+
+    public List<Transaction> getUserTransactions(String email, String id) throws IOException {
+        List<Transaction> userTransactions = null;
+        String responseContent = "";
+        CloseableHttpClient httpClient = getHttpClient();
+        HttpResponse response = null;
+
+        try {
+            HttpGet httpGet = new HttpGet(getUserTransactionsApi(email, id));
+
+            // Add HTTP headers to HTTP request
+            httpGet.addHeader(HTTP_HEADER_ACCEPT, MEDIA_TYPE_APPLICATION_JSON);
+
+            // Make a POST HTTP call
+            response = httpClient.execute(httpGet);
+            HttpEntity entity = response.getEntity();
+            InputStream responseStream = entity.getContent();
+            //if (responseStream != null) {
+            //  responseContent = IOUtils.toString(responseStream);
+            //System.out.println("Response Content : " + responseContent);
+            //}
+            if (entity != null) {
+                System.out.println("Response entity : " + entity);
+            }
+
+            System.out.println("Response Status: " + response.getStatusLine());
+            if(HTTP_STATUS_OK == response.getStatusLine().getStatusCode()){
+                if(null != responseStream){
+                    userTransactions = new ObjectMapper().readValue(responseStream, new TypeReference<List<Transaction>>(){});
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            httpClient.close();
+        }
+        return userTransactions;
     }
 
     /**

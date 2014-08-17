@@ -19,8 +19,14 @@ import java.util.Map;
  */
 @Controller
 public class HomePageController {
+
+    @Autowired
+    UserService userService;
+
     @RequestMapping("/homePage")
     public String getSignInForm(HttpServletRequest httpServletRequest, Map<String, Object> map){
+        String email = (String) httpServletRequest.getSession().getAttribute("email");
+        String id = (String) httpServletRequest.getSession().getAttribute("id");
         map.put("email", httpServletRequest.getSession().getAttribute("email"));
         return "homePage";
     }
