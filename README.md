@@ -1,24 +1,17 @@
 Free Pizza App
 =====================
+This is the application server, also, the client of the free pizza API server
 
-I am very thankful to Viral Patel for sharing this useful tutorial. For explanation and working,
+      https://github.com/iamon3/free.apis
 
-   Refer : http://viralpatel.net/blogs/spring3-mvc-hibernate-maven-tutorial-eclipse-example/
-
-Although, this blog is bit older, as it was written 4 yrs back, but still it's good to start and develop the project. Soon, I will try to update this project or will create new project, with new trends in Spring MVC, Hibernate. 
+For complete end to end working, API server must be up. Please set up (follow README of the project at the mentioned link) and boot up API server before booting up the APP server.
 
 Pre-Requisite:
 
     - Maven              (I tested with Apache Maven 3.0.3)
     - Apache Tomcat      (I tested with apache-tomcat-7.0.52)
-    - MySQL              ( I tested with Server version: 5.5.36 MySQL Community Server (GPL))
-    - Create ContactManager database in MySQL from the dbuser login
-      $ mysql -u {db user}  -p {db user password}                   (Enter)
-      mysql> CREATE DATABASE ContactManager;
-      
-      Please note : You can configure db user and password in the following file,
-      
-
+    - Free Pizza API server 
+    
 Set up project :
   
   1) Clone the project
