@@ -17,7 +17,6 @@ Pre-Requisite:
       mysql> CREATE DATABASE ContactManager;
       
       Please note : You can configure db user and password in the following file,
-      src/main/webapp/WEB-INF/jdbc.properties
       
 
 Set up project :
@@ -30,7 +29,7 @@ Set up project :
       
        $ sudo mvn clean; sudo mvn package
   
-  3) Copy Spring3HibernateMaven.war to tomcat's webapps directory
+  3) Copy freepizzaapp.war to tomcat's webapps directory
   
        $ sudo cp target/freepizzaapp.war {tomcat install dir}/webapps
       

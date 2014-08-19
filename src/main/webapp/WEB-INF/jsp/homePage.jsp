@@ -114,7 +114,7 @@
 </script>
 </head>
 <body>
-<h5>Wel come ${email}></h5><br/><br/>
+<h5>Wel come ${email}</h5><br/><br/>
 <h2>Menu</h2>
 
 <!--button type="button" onclick="loadDoc()">Pizzas</button-->
