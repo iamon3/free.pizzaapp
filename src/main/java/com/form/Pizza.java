@@ -27,7 +27,7 @@ public class Pizza {
     }
 
     public void addTopping(Topping topping){
-        this.price += Integer.parseInt(topping.getPrice());
+        this.price += topping.getPrice();
         toppings.add(topping);
     }
 
