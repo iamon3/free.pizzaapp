@@ -31,7 +31,12 @@
 	</style>
 
 	<script>
-    function loadXMLDoc(resource)
+
+    function loadDoc(){
+        var pizzaResponse = loadXMLDoc1(loadXMLDoc2);
+    }
+
+    function loadXMLDoc1(callBackMethod)
     {
        var xmlhttp;
        if (window.XMLHttpRequest)
@@ -42,17 +47,40 @@
          {// code for IE6, IE5
            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
          }
+
        xmlhttp.onreadystatechange=function(){
          if (xmlhttp.readyState==4 && (xmlhttp.status==200))
            {
-            if(resource=='Pizzas'){ document.getElementById("myDiv").innerHTML=parsePizzasResponse(xmlhttp.responseText);}
-          	if(resource=='Toppings'){ document.getElementById("myDiv").innerHTML=parseToppingsResponse(xmlhttp.responseText);}
+              callBackMethod(xmlhttp.responseText);
            }
        }
 
-       xmlhttp.open("GET",getResourceURL(resource),true);
+       xmlhttp.open("GET","http://localhost:9090/freeapis/pizzas",true);
        xmlhttp.setRequestHeader("Accept","application/json");
        xmlhttp.send();
+    }
+
+
+    function loadXMLDoc2(response)
+    {
+       var toppingsXmlHttp;
+       if (window.XMLHttpRequest)
+         {// code for IE7+, Firefox, Chrome, Opera, Safari
+           toppingsXmlHttp=new XMLHttpRequest();
+         }
+       else
+         {// code for IE6, IE5
+           toppingsXmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+         }
+
+       toppingsXmlHttp.onreadystatechange=function(){
+          if (toppingsXmlHttp.readyState==4 && (toppingsXmlHttp.status==200)){
+              document.getElementById("myDiv").innerHTML=parsePizzasToppingsResponse(JSON.parse(response), JSON.parse(toppingsXmlHttp.responseText));
+          }
+       }
+       toppingsXmlHttp.open("GET","http://localhost:9090/freeapis/toppings",true);
+       toppingsXmlHttp.setRequestHeader("Accept","application/json");
+       toppingsXmlHttp.send();
     }
 
     function getResourceURL(resource){
@@ -63,38 +91,29 @@
        return resourceURL;
     }
 
-    function parsePizzasResponse(response){
-       var json_obj = JSON.parse(response);
-
-       var output="<br/><table style=\"width:300px\"> <tr> <td><b>ID</b></td> <td><b>Name</b></td> <td><b>Description</b></td> <td><b>Price</b></td></tr>";
+    function parsePizzasToppingsResponse(json_obj, toppings_json_obj){
+       var output="<br/><table style=\"width:300px\"> <tr> <td><b>ID</b></td> <td><b>Name</b></td> <td><b>Description</b></td> <td><b>Price</b></td> <td><b>Toppings</b></td></tr>";
        for (var i in json_obj)
          {
-           output+="<tr><td>" + json_obj[i].id + "</td><td>" + json_obj[i].name + "</td><td>" + json_obj[i].description + "</td><td>" + json_obj[i].price + "</td></tr>";
+           output+="<tr><td>" + json_obj[i].id + "</td><td>" + json_obj[i].name + "</td><td>" + json_obj[i].description + "</td><td>" + json_obj[i].price + "</td>";
+           for (var j in toppings_json_obj){
+               output+="<td>" + toppings_json_obj[j].id + "</td><td>" + toppings_json_obj[j].name + "</td><td>" + toppings_json_obj[j].price + "</td></tr>";
+           }
          }
        output+="</table>";
        return output;
     }
 
-    function parseToppingsResponse(response){
-       var json_obj = JSON.parse(response);
-
-       var output="<br/><table style=\"width:300px\"> <tr> <td><b>ID</b></td> <td><b>Name</b></td> <td><b>Price</b></td></tr>";
-       for (var i in json_obj)
-         {
-           output+="<tr><td>" + json_obj[i].id + "</td><td>" + json_obj[i].name + "</td><td>" + json_obj[i].price  + "</td></tr>";
-         }
-       output+="</table>";
-       return output;
-    }
 </script>
 </head>
 <body>
 
 <h2>Today Menu</h2>
 
-<button type="button" onclick="loadXMLDoc('Pizzas')">Pizzas</button>
-<button type="button" onclick="loadXMLDoc('Toppings')">Toppings</button>
-
+<!--button type="button" onclick="loadDoc()">Pizzas</button-->
 <div id="myDiv"></div>
+<script>
+loadDoc();
+</script>
 </body>
 </html>
