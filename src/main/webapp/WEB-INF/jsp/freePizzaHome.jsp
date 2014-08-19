@@ -52,7 +52,6 @@
 
        xmlhttp.open("GET",getResourceURL(resource),true);
        xmlhttp.setRequestHeader("Accept","application/json");
-       xmlhttp.setRequestHeader("Access-Control-Allow-Origin","*");
        xmlhttp.send();
     }
 
@@ -67,7 +66,7 @@
     function parsePizzasResponse(response){
        var json_obj = JSON.parse(response);
 
-       var output="<br/><table style=\"width:300px\"> <tr> <td><b>ID</b></td> <td><b>Name</b></td> <td><b>Price</b></td> <td><b>Description</b></td></tr>";
+       var output="<br/><table style=\"width:300px\"> <tr> <td><b>ID</b></td> <td><b>Name</b></td> <td><b>Description</b></td> <td><b>Price</b></td></tr>";
        for (var i in json_obj)
          {
            output+="<tr><td>" + json_obj[i].id + "</td><td>" + json_obj[i].name + "</td><td>" + json_obj[i].description + "</td><td>" + json_obj[i].price + "</td></tr>";
@@ -82,7 +81,7 @@
        var output="<br/><table style=\"width:300px\"> <tr> <td><b>ID</b></td> <td><b>Name</b></td> <td><b>Price</b></td></tr>";
        for (var i in json_obj)
          {
-           output+="<tr><td>" + json_obj[i].id + "</td><td>" + json_obj[i].name + "</td><td>" + json_obj[i].description + "</td></tr>";
+           output+="<tr><td>" + json_obj[i].id + "</td><td>" + json_obj[i].name + "</td><td>" + json_obj[i].price  + "</td></tr>";
          }
        output+="</table>";
        return output;
