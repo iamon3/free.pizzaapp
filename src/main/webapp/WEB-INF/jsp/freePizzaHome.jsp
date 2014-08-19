@@ -92,15 +92,22 @@
     }
 
     function parsePizzasToppingsResponse(json_obj, toppings_json_obj){
-       var output="<br/><table style=\"width:300px\"> <tr> <td><b>ID</b></td> <td><b>Name</b></td> <td><b>Description</b></td> <td><b>Price</b></td> <td><b>Toppings</b></td></tr>";
+
+       var toppings_output = "<td><table><tr>";
+       for (var j in toppings_json_obj){
+          toppings_output+= "<td>"
+          + "<input type='checkbox' name=\"+toppings_json_obj[j].id +\" value =\"+toppings_json_obj[j].id +\" > "
+          + toppings_json_obj[j].name + "</input> " + toppings_json_obj[j].price +"$</td>";
+       }
+       toppings_output += "</tr></table></td></tr>";
+
+
+       var output="<br/><form method='post' action='signIn.html' modelAttribute='transaction'><table style=\"width:300px\"> <tr> <td><b>Name</b></td> <td><b>Description</b></td> <td><b>Price</b></td> <td><b>Toppings</b></td></tr>";
        for (var i in json_obj)
          {
-           output+="<tr><td>" + json_obj[i].id + "</td><td>" + json_obj[i].name + "</td><td>" + json_obj[i].description + "</td><td>" + json_obj[i].price + "</td>";
-           for (var j in toppings_json_obj){
-               output+="<td>" + toppings_json_obj[j].id + "</td><td>" + toppings_json_obj[j].name + "</td><td>" + toppings_json_obj[j].price + "</td></tr>";
-           }
+           output+="<tr><td><input type='checkbox' name=\" + json_obj[i].id + \"value = \"+json_obj[i].id+\" >" + json_obj[i].name + "</input></td><td>" + json_obj[i].description + "</td><td>" + json_obj[i].price + "</td>" + toppings_output;
          }
-       output+="</table>";
+       output+="</table></form>";
        return output;
     }
 
@@ -108,7 +115,7 @@
 </head>
 <body>
 
-<h2>Today Menu</h2>
+<h2>ORDER ONLINE</h2>
 
 <!--button type="button" onclick="loadDoc()">Pizzas</button-->
 <div id="myDiv"></div>
