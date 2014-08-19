@@ -3,7 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
-	<title>User Home Page</title>
+	<title>Free Pizza Home Page</title>
 
 	<style>
     </style>
@@ -114,7 +114,7 @@
 </script>
 </head>
 <body>
-
+<h1>Wel come ${email}| </h1><br/><br/>
 <h2>ORDER ONLINE</h2>
 
 <!--button type="button" onclick="loadDoc()">Pizzas</button-->

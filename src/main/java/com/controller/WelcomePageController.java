@@ -9,13 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  */
 @Controller
 public class WelcomePageController {
     @RequestMapping("")
-    public String getIndexPage(){
-        return "freePizzaHome";
+    public String getIndexPage(Map<String, Object> map){
+        map.put("user", new com.form.User());
+        return "signUp";
     }
 }

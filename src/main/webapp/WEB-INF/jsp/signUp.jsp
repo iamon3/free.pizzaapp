@@ -23,8 +23,8 @@
 	</style>
 </head>
 <body>
-
-<h2>Sign Up For Free!!</h2>
+<h1>Hurry Up!! Pizza is ready. To order online please sign up.</h1><br/><br/>
+<h2>Registration is Free!!</h2>
 
 <form:form method="post" action="signUp.html" modelAttribute="user">
 
@@ -35,7 +35,7 @@
 	</tr>
 	<tr>
 		<td><form:label path="password"><spring:message code="label.password"/></form:label></td>
-		<td><form:input path="password" /></td>
+		<td><form:password path="password" /></td>
 	</tr>
 	<tr>
 		<td><form:label path="email"><spring:message code="label.email"/></form:label></td>
