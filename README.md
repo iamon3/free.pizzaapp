@@ -1,4 +1,4 @@
-Spring3HibernateMaven
+Free Pizza App
 =====================
 
 I am very thankful to Viral Patel for sharing this useful tutorial. For explanation and working,
@@ -28,11 +28,11 @@ Set up project :
       
   2) Install the project
       
-       $ sudo mvn clean; sudo mvn install
+       $ sudo mvn clean; sudo mvn package
   
   3) Copy Spring3HibernateMaven.war to tomcat's webapps directory
   
-       $ sudo cp target/Spring3HibernateMaven.war {tomcat install dir}/webapps
+       $ sudo cp target/freepizzaapp.war {tomcat install dir}/webapps
       
   4) Start the tomcat server
      
@@ -47,5 +47,5 @@ Set up project :
   5)  Test the web app
       Open your favorite browser and enter following URL
       
-       http://localhost:8080/freepizzaapp/index
+       http://localhost:8080/freepizzaapp
   
