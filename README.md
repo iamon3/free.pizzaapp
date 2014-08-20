@@ -17,16 +17,20 @@ Set up project :
   1) Clone the project
   
        $ git clone https://github.com/iamon3/free.pizzaapp.git
+       
+  2) Configure the API server end-point "apiserver.endpoint" property in the file src/main/webapp/WEB-INF/config.properties. 
+  
+       e.g. apiserver.endpoint=localhost:9090/freeapis
       
-  2) Install the project
+  3) Build the project
       
        $ sudo mvn clean; sudo mvn package
   
-  3) Copy freepizzaapp.war to tomcat's webapps directory
+  4) Copy freepizzaapp.war to tomcat's webapps directory
   
        $ sudo cp target/freepizzaapp.war {tomcat install dir}/webapps
       
-  4) Start the tomcat server
+  5) Start the tomcat server
      
        $ cd {tomcat install dir}/bin
        $ sudo sh ./catalina.sh start        (To stop : sudo sh ./catalina.sh stop)
@@ -36,7 +40,7 @@ Set up project :
        $ sudo vi tail -f ../logs/catalina.out
      
      
-  5)  Test the web app
+  6)  Test the web app
       Open your favorite browser and enter following URL
       
        http://localhost:8080/freepizzaapp
