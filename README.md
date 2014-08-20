@@ -1,6 +1,6 @@
 Free Pizza App
 =====================
-This is the application server, also, the client of the free pizza API server
+This is the application server, also, the client of the free pizza API server (refer link mentioned below)
 
       https://github.com/iamon3/free.apis
 
