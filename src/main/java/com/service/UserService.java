@@ -15,8 +15,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
+    @Autowired
+    UserHttpClient userHttpClient;
+
     public User  addUser(User user){
-        UserHttpClient userHttpClient = new UserHttpClient();
         User signedUpUser = null;
         try {
             signedUpUser = userHttpClient.createUser(user);
@@ -27,8 +29,6 @@ public class UserService {
     }
 
     public User  authenticateUser(User user){
-
-        UserHttpClient userHttpClient = new UserHttpClient();
         User signedInUser = null;
         try {
             signedInUser = userHttpClient.authenticateUser(user.getEmail(), user.getPassword());
@@ -39,7 +39,6 @@ public class UserService {
     }
 
     public Transaction saveUserTransaction(String email, String id, Transaction transaction){
-        UserHttpClient userHttpClient = new UserHttpClient();
         Transaction savedTransaction = null;
         try {
             savedTransaction = userHttpClient.saveUserTransaction(email, id, transaction);
@@ -50,7 +49,6 @@ public class UserService {
     }
 
     public List<Transaction> fetchUserTransaction(String email, String id, Transaction transaction){
-        UserHttpClient userHttpClient = new UserHttpClient();
         List<Transaction> userTransactions = null;
         try {
             userTransactions = userHttpClient.getUserTransactions(email, id);

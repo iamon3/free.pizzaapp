@@ -35,9 +35,16 @@ import static com.util.PizzaAPIs.HTTP_HEADER_CONTENT_TYPE;
 import static com.util.PizzaAPIs.MEDIA_TYPE_APPLICATION_JSON;
 import static com.util.PizzaAPIs.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 /**
  */
+@Component
 public class UserHttpClient {
+
+    @Autowired
+    PizzaAPIs pizzaAPIs;
 
     public User createUser(User user) throws IOException {
         User signedUpUser = null;
@@ -46,7 +53,7 @@ public class UserHttpClient {
         HttpResponse response = null;
 
         try {
-            HttpPost httpPost = new HttpPost(getAddUserApi());
+            HttpPost httpPost = new HttpPost(pizzaAPIs.getAddUserApi());
 
             // Add HTTP headers to HTTP request
             httpPost.addHeader(HTTP_HEADER_ACCEPT, MEDIA_TYPE_APPLICATION_JSON);
@@ -97,7 +104,7 @@ public class UserHttpClient {
         HttpResponse response = null;
 
         try {
-            HttpGet httpGet = new HttpGet(getAuthenticateUserApi(email, password));
+            HttpGet httpGet = new HttpGet(pizzaAPIs.getAuthenticateUserApi(email, password));
 
             // Add HTTP headers to HTTP request
             httpGet.addHeader(HTTP_HEADER_ACCEPT, MEDIA_TYPE_APPLICATION_JSON);
@@ -136,7 +143,7 @@ public class UserHttpClient {
         HttpResponse response = null;
 
         try {
-            HttpPost httpPost = new HttpPost(getUserTransactionsApi(email, id));
+            HttpPost httpPost = new HttpPost(pizzaAPIs.getUserTransactionsApi(email, id));
 
             // Add HTTP headers to HTTP request
             httpPost.addHeader(HTTP_HEADER_ACCEPT, MEDIA_TYPE_APPLICATION_JSON);
@@ -187,7 +194,7 @@ public class UserHttpClient {
         HttpResponse response = null;
 
         try {
-            HttpGet httpGet = new HttpGet(getUserTransactionsApi(email, id));
+            HttpGet httpGet = new HttpGet(pizzaAPIs.getUserTransactionsApi(email, id));
 
             // Add HTTP headers to HTTP request
             httpGet.addHeader(HTTP_HEADER_ACCEPT, MEDIA_TYPE_APPLICATION_JSON);

@@ -2,20 +2,21 @@ package com.util;
 
 import java.net.URI;
 import org.apache.http.client.utils.URIBuilder;
-
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 /**
  */
-public abstract class PizzaAPIs {
+@Component
+public class PizzaAPIs {
 
-    public static String URI_SCHEME_HTTP = "http";
-    public static String API_END_POINT = "http://localhost:9090/freeapis";
-    public static String API_SERVER_HOST_END_POINT = "localhost:9090/freeapis";
-    public static String PIZZAS_RESOURCE = "/pizzas";
-    public static String USERS_RESOURCE = "/users";
-    public static String USER_TRANSACTIONS_RESOURCE = "/transactions";
-    public static String TOPPINGS_RESOURCE = "/toppings";
-    public static String USER_AUTHENTICATE_RESOURCE = "/authenticate";
-
+    @Value( "${apiserver.urischeme}" ) private String uriScheme;
+    @Value( "${apiserver.endpoint}" )  private String apiServerHost;
+    @Value( "${apiserver.resource.pizzas}" ) private String pizzaResource;
+    @Value( "${apiserver.resource.users}" )private String usersResource;
+    @Value( "${apiserver.resource.toppings}" ) private String toppingsResource;
+    @Value( "${apiserver.resource.transactions}" ) private String transactionsResource;
+    @Value( "${apiserver.resource.authenticate}" ) private String authenticateResource;
 
     public static final String HTTP_HEADER_ACCEPT = "Accept";
     public static final String HTTP_HEADER_CONTENT_TYPE = "Content-Type";
@@ -35,13 +36,13 @@ public abstract class PizzaAPIs {
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
 
-    public static URI getAddUserApi(){
+    public URI getAddUserApi(){
         URI uri = null;
         try {
             uri = new URIBuilder()
-                    .setScheme(URI_SCHEME_HTTP)
-                    .setHost(API_SERVER_HOST_END_POINT)
-                    .setPath(USERS_RESOURCE).build();
+                    .setScheme(uriScheme)
+                    .setHost(apiServerHost)
+                    .setPath(usersResource).build();
         }
         catch (java.net.URISyntaxException ue){
             ue.printStackTrace();
@@ -49,13 +50,13 @@ public abstract class PizzaAPIs {
         return uri;
     }
 
-    public static URI getAuthenticateUserApi(String email, String password){
+    public URI getAuthenticateUserApi(String email, String password){
         URI uri = null;
         try {
             uri = new URIBuilder()
-                    .setScheme(URI_SCHEME_HTTP)
-                    .setHost(API_SERVER_HOST_END_POINT)
-                    .setPath(USERS_RESOURCE + USER_AUTHENTICATE_RESOURCE)
+                    .setScheme(uriScheme)
+                    .setHost(apiServerHost)
+                    .setPath(usersResource + authenticateResource)
                     .setParameter(EMAIL, email)
                     .setParameter(PASSWORD, password).build();
 
@@ -67,13 +68,13 @@ public abstract class PizzaAPIs {
         return uri;
     }
 
-    public static URI getUserTransactionsApi(String email, String userId){
+    public URI getUserTransactionsApi(String email, String userId){
         URI uri = null;
         try {
             uri = new URIBuilder()
-                    .setScheme(URI_SCHEME_HTTP)
-                    .setHost(API_SERVER_HOST_END_POINT)
-                    .setPath(USERS_RESOURCE + userId + USER_TRANSACTIONS_RESOURCE)
+                    .setScheme(uriScheme)
+                    .setHost(apiServerHost)
+                    .setPath(usersResource + userId + transactionsResource)
                     .setParameter(EMAIL, email).build();
         }
         catch (java.net.URISyntaxException ue){
