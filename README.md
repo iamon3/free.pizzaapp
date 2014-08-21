@@ -45,3 +45,8 @@ Set up project :
       
        http://localhost:8080/freepizzaapp
   
+Live Demo :
+
+  I hav deployed the free instance in cloudbees.com (cloudbees cloud). The same can be tested at the following
+
+       http://free-pizza-app.free-org.cloudbees.net
