@@ -12,7 +12,7 @@ Pre-Requisite:
     - Apache Tomcat      (I tested with apache-tomcat-7.0.52)
     - Free Pizza API server 
     
-Set up project :
+Set up APP server :
   
   1) Clone the project
   
@@ -47,6 +47,6 @@ Set up project :
   
 Live Demo :
 
-  I hav deployed the free instance in cloudbees.com (cloudbees cloud). The same can be tested at the following
+  I have deployed the free instance in cloudbees.com (cloudbees cloud). The same can be tested at the following
 
        http://free-pizza-app.free-org.cloudbees.net
