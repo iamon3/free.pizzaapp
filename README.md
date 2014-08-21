@@ -13,6 +13,7 @@ Pre-Requisite:
     - Free Pizza API server 
     
 A] Set up APP server in a sandbox :
+-----------------------------------
   
   1) Clone the project
   
@@ -50,6 +51,7 @@ A] Set up APP server in a sandbox :
        http://localhost:8080/freepizzaapp
   
 B] Live Demo :
+--------------
 
   I have deployed the free instance in cloudbees.com (cloudbees cloud). The same can be tested at the following
 
