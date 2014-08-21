@@ -1,6 +1,8 @@
 package com.filter;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -11,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.client.utils.URIBuilder;
+
 import com.util.PizzaAPIs;
 
 /**
@@ -19,9 +23,10 @@ public class AuthenticationFilter implements Filter {
 
     private String[] restrictedPageUrls = new String[]{"/homePage", "/signOut"}; //"/signUp","/signIn",
 
-    private final static String APP_SERVER_END_POINT = "http://localhost:8080/freepizzaapp";
-    private final static String HOME_PAGE_URL =  APP_SERVER_END_POINT + "/homePage";
-    private final static String SIGN_IN_PAGE_URL =  APP_SERVER_END_POINT + "/signIn";
+   // private final static String APP_SERVER_END_POINT = "http://localhost:8080;
+    private final static String APP_BASE_URL = "/freepizzaapp";
+    private final static String HOME_PAGE_URL ="/homePage";
+    private final static String SIGN_IN_PAGE_URL ="/signIn";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -36,6 +41,7 @@ public class AuthenticationFilter implements Filter {
     private void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 
         System.out.println(">>>> Auth Filter");
+
         if(needAuthentication(request.getRequestURI())){
             System.out.println(">>>> Need Authentication");
             if(isAlreadyAuthenticated(request.getSession())){
@@ -44,14 +50,14 @@ public class AuthenticationFilter implements Filter {
             }
             else{
                 System.out.println(">>>> Not already authenticated. Do not allow access. Redirect to sign in.");
-                response.sendRedirect(SIGN_IN_PAGE_URL);
+                response.sendRedirect(getSignInPageUr(request.getRequestURL().toString()));
             }
         }
         else{
             System.out.println(">>>> Does not need authentication. Public resource.");
             if(isAuthenticationResource(request.getRequestURI()) && isAlreadyAuthenticated(request.getSession()) ){ // e.g. signUp, signIn
                 System.out.println(">>>> Already Authenticated. trying to access signUp, signIn. Redirect to Home Page.");
-                response.sendRedirect(HOME_PAGE_URL);
+                response.sendRedirect(getHomePageUr(request.getRequestURL().toString()));
             }
             else{
                 System.out.println(">>>> Not already authenticated. Allow access.");
@@ -80,6 +86,38 @@ public class AuthenticationFilter implements Filter {
 
     private boolean isAlreadyAuthenticated(HttpSession httpSession){
         return (null != httpSession.getAttribute(PizzaAPIs.EMAIL));
+    }
+
+    private String getSignInPageUr(String requestUrl){
+        URIBuilder redirectURL=new URIBuilder();
+        try {
+            URI uri = new URI(requestUrl);
+            redirectURL.setScheme(uri.getScheme()).setHost(uri.getHost());
+            if(-1 != uri.getPort()){
+                redirectURL.setPort(uri.getPort());
+            }
+            redirectURL.setPath(APP_BASE_URL + SIGN_IN_PAGE_URL);
+        }
+        catch (Exception ue){
+            ue.printStackTrace();
+        }
+        return redirectURL.toString();
+    }
+
+    private String getHomePageUr(String requestUrl){
+        URIBuilder redirectURL=new URIBuilder();
+        try {
+            URI uri = new URI(requestUrl);
+            redirectURL.setScheme(uri.getScheme()).setHost(uri.getHost());
+            if(-1 != uri.getPort()){
+                redirectURL.setPort(uri.getPort());
+            }
+            redirectURL.setPath(APP_BASE_URL + HOME_PAGE_URL);
+        }
+        catch (Exception ue){
+            ue.printStackTrace();
+        }
+        return redirectURL.toString();
     }
 
     @Override
