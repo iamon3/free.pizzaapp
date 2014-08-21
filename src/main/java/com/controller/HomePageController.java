@@ -14,6 +14,7 @@ import com.service.UserService;
 import com.form.User;
 
 import java.util.Map;
+import com.util.PizzaAPIs;
 
 /**
  */
@@ -23,11 +24,16 @@ public class HomePageController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    PizzaAPIs pizzaAPIs;
+
     @RequestMapping("/homePage")
     public String getSignInForm(HttpServletRequest httpServletRequest, Map<String, Object> map){
         String email = (String) httpServletRequest.getSession().getAttribute("email");
         String id = (String) httpServletRequest.getSession().getAttribute("id");
         map.put("email", httpServletRequest.getSession().getAttribute("email"));
+        map.put("pizzasAPI",pizzaAPIs.getPizzasApi());
+        map.put("toppingsAPI",pizzaAPIs.getToppingsApi());
         return "homePage";
     }
 }

@@ -32,8 +32,8 @@
 
 	<script>
 
-    var pizzasAPI = '<c:out value="${apiServerConfig.getPizzasApi()}"/>';
-    var toppingsAPI = '<c:out value="${apiServerConfig.getToppingsApi()}"/>';
+    var pizzasAPI = '<c:out value="${pizzasAPI}"/>';
+    var toppingsAPI = '<c:out value="${toppingsAPI}"/>';
 
     function loadDoc(){
         var pizzaResponse = loadXMLDoc1(loadXMLDoc2);
