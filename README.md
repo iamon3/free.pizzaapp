@@ -20,7 +20,7 @@ Set up project :
        
   2) Configure the API server end-point "apiserver.endpoint" property in the file src/main/webapp/WEB-INF/config.properties. 
   
-       e.g. apiserver.endpoint=localhost:9090/freeapis
+       e.g. apiserver.endpoint=localhost:9090
       
   3) Build the project
       
