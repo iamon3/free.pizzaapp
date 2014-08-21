@@ -32,6 +32,9 @@
 
 	<script>
 
+    var pizzasAPI = '<c:out value="${apiServerConfig.getPizzasApi()}"/>';
+    var toppingsAPI = '<c:out value="${apiServerConfig.getToppingsApi()}"/>';
+
     function loadDoc(){
         var pizzaResponse = loadXMLDoc1(loadXMLDoc2);
     }
@@ -54,8 +57,7 @@
               callBackMethod(xmlhttp.responseText);
            }
        }
-       alert("<%=pizzasAPI%>");
-       xmlhttp.open("GET","http://localhost:9090/freeapis/pizzas",true);
+       xmlhttp.open("GET",pizzasAPI,true);
        xmlhttp.setRequestHeader("Accept","application/json");
        xmlhttp.send();
     }
@@ -78,7 +80,7 @@
               document.getElementById("myDiv").innerHTML=parsePizzasToppingsResponse(JSON.parse(response), JSON.parse(toppingsXmlHttp.responseText));
           }
        }
-       toppingsXmlHttp.open("GET","http://localhost:9090/freeapis/toppings",true);
+       toppingsXmlHttp.open("GET",toppingsAPI,true);
        toppingsXmlHttp.setRequestHeader("Accept","application/json");
        toppingsXmlHttp.send();
     }
@@ -107,11 +109,8 @@
 </head>
 <body>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<c:set var="pizzasAPI" value="${apiServerConfig.getPizzasApi()}"/>
-<c:set var="toppingsAPI" value="${apiServerConfig.getToppingsApi()}"/>
 <div>Wel come <c:out value="${sessionScope.email}"/> | <a href="${contextPath}/signOut">Sign Out</a></div><br/><br/>
 <h2>Menu</h2>
-
 <div id="myDiv"></div>
 <script>
 loadDoc();
