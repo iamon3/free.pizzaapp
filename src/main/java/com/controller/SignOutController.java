@@ -39,6 +39,6 @@ public class SignOutController {
 */
         httpServletRequest.getSession().invalidate();
         map.put("user", new User());
-        return "signIn";
+        return "redirect:/signIn";
     }
 }

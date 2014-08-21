@@ -27,7 +27,6 @@ public class SignUpController {
 
     @RequestMapping("/signUp")
     public String getSignUpForm(Map<String, Object> map){
-
         map.put("user", new User());
         return "signUp";
     }
@@ -35,6 +34,6 @@ public class SignUpController {
     @RequestMapping(value = "/signUp", method=RequestMethod.POST)
     public String addUser(@ModelAttribute("user") User user, BindingResult result){
         userService.addUser(user);
-        return "signIn";
+        return "redirect:/signIn";
     }
 }

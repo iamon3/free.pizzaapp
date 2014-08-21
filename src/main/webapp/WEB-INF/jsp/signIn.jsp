@@ -24,9 +24,11 @@
 </head>
 <body>
 
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<h1>Hurry Up!! Pizza is ready.</h1><br/><br/>
 <h2>Sign In</h2>
 
-<form:form method="post" action="signIn.html" modelAttribute="user">
+<form:form method="post" action="signIn" modelAttribute="user">
 
 	<table>
 	<tr>
@@ -44,6 +46,8 @@
 	</tr>
 </table>
 </form:form>
+
+Not a member?  <a href="${contextPath}/signUp">Register Here</a>
 
 </body>
 </html>

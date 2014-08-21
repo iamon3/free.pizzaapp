@@ -95,9 +95,9 @@
 
        var toppings_output = "<td><table><tr>";
        for (var j in toppings_json_obj){
-          toppings_output+= "<td>"
+          toppings_output+= "<td><div>"
           + "<input type='checkbox' name=\'"+toppings_json_obj[j].id +"\' value =\'"+toppings_json_obj[j].id +"\' > "
-          + toppings_json_obj[j].name + "</input> $" + toppings_json_obj[j].price +"</td>";
+          + toppings_json_obj[j].name + "</input> $" + toppings_json_obj[j].price +"</div></td>";
        }
        toppings_output += "</tr></table></td></tr>";
 
@@ -105,7 +105,7 @@
        var output="<br/><form method='post' action='signIn.html' modelAttribute='transaction'><table style=\"width:300px\"> <tr> <td><b>Select your choice of Pizzas</b></td> <td><b>Ingredients</b></td> <td><b>Price</b></td> <td><b>Toppings</b></td></tr>";
        for (var i in json_obj)
          {
-           output+="<tr><td><input type='checkbox' name=\'" + json_obj[i].id + "\' value = \'"+json_obj[i].id+"\' >" + json_obj[i].name + "</input></td><td>" + json_obj[i].description + "</td><td>" + json_obj[i].price + "</td>" + toppings_output;
+           output+="<div><tr><td><div><input type='checkbox' name=\'" + json_obj[i].id + "\' value = \'"+json_obj[i].id+"\' >" + json_obj[i].name + "</input></div></td><td><div>" + json_obj[i].description + "</div></td><td>" + json_obj[i].price + "</td>" + toppings_output + "</div>";
          }
        output+="</table></form>";
        return output;
@@ -114,7 +114,8 @@
 </script>
 </head>
 <body>
-<h5>Wel come ${email}</h5><br/><br/>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<div>Wel come <c:out value="${sessionScope.email}"/> | <a href="${contextPath}/signOut">Sign Out</a></div><br/><br/>
 <h2>Menu</h2>
 
 <!--button type="button" onclick="loadDoc()">Pizzas</button-->

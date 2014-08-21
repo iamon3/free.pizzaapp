@@ -23,10 +23,11 @@
 	</style>
 </head>
 <body>
-<h1>Hurry Up!! Pizza is ready. To order online please sign up.</h1><br/><br/>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<h1>Hurry Up!! Pizza is ready.</h1><br/><br/>
 <h2>Registration is Free!!</h2>
 
-<form:form method="post" action="signUp.html" modelAttribute="user">
+<form:form method="post" action="signUp" modelAttribute="user">
 
 	<table>
 	<tr>
@@ -48,6 +49,8 @@
 	</tr>
 </table>
 </form:form>
+
+Already Registered?  <a href="${contextPath}/signIn">Sign In</a>
 
 </body>
 </html>
