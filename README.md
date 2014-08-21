@@ -1,4 +1,4 @@
-Pizza App Overview
+Pizza APP Overview
 ==================
 This is the application server, also, the client of the free pizza API server (refer link mentioned below)
 
