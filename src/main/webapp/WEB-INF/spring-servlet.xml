@@ -33,6 +33,7 @@
 		      e.g. if Controller method is returing "Hello" it is mapped to "/WEB-INF/jsp/Hello.jsp" -->	
 		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
+        <property name="exposeContextBeansAsAttributes" value="true" />
 	</bean>
 
 	<!-- Messages in the applications can be configured in properties files and 

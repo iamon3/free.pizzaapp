@@ -54,7 +54,7 @@
               callBackMethod(xmlhttp.responseText);
            }
        }
-
+       alert("<%=pizzasAPI%>");
        xmlhttp.open("GET","http://localhost:9090/freeapis/pizzas",true);
        xmlhttp.setRequestHeader("Accept","application/json");
        xmlhttp.send();
@@ -83,14 +83,6 @@
        toppingsXmlHttp.send();
     }
 
-    function getResourceURL(resource){
-       var resourceURL;
-
-       if(resource=='Pizzas'){ resourceURL='http://localhost:9090/freeapis/pizzas';}
-       if(resource=='Toppings'){ resourceURL='http://localhost:9090/freeapis/toppings';}
-       return resourceURL;
-    }
-
     function parsePizzasToppingsResponse(json_obj, toppings_json_obj){
 
        var toppings_output = "<td><table><tr>";
@@ -115,10 +107,11 @@
 </head>
 <body>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<c:set var="pizzasAPI" value="${apiServerConfig.getPizzasApi()}"/>
+<c:set var="toppingsAPI" value="${apiServerConfig.getToppingsApi()}"/>
 <div>Wel come <c:out value="${sessionScope.email}"/> | <a href="${contextPath}/signOut">Sign Out</a></div><br/><br/>
 <h2>Menu</h2>
 
-<!--button type="button" onclick="loadDoc()">Pizzas</button-->
 <div id="myDiv"></div>
 <script>
 loadDoc();

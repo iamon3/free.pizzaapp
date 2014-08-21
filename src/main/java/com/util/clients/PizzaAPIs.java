@@ -7,12 +7,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 /**
  */
-@Component
+@Component("apiServerConfig")
 public class PizzaAPIs {
 
     @Value( "${apiserver.urischeme}" ) private String uriScheme;
     @Value( "${apiserver.endpoint}" )  private String apiServerHost;
-    @Value( "${apiserver.resource.pizzas}" ) private String pizzaResource;
+    @Value( "${apiserver.baseResource}" )  private String apiServerBaseUrl;
+    @Value( "${apiserver.resource.pizzas}" ) private String pizzasResource;
     @Value( "${apiserver.resource.users}" )private String usersResource;
     @Value( "${apiserver.resource.toppings}" ) private String toppingsResource;
     @Value( "${apiserver.resource.transactions}" ) private String transactionsResource;
@@ -42,7 +43,7 @@ public class PizzaAPIs {
             uri = new URIBuilder()
                     .setScheme(uriScheme)
                     .setHost(apiServerHost)
-                    .setPath(usersResource).build();
+                    .setPath(apiServerBaseUrl + usersResource).build();
         }
         catch (java.net.URISyntaxException ue){
             ue.printStackTrace();
@@ -56,7 +57,7 @@ public class PizzaAPIs {
             uri = new URIBuilder()
                     .setScheme(uriScheme)
                     .setHost(apiServerHost)
-                    .setPath(usersResource + authenticateResource)
+                    .setPath(apiServerBaseUrl + usersResource + authenticateResource)
                     .setParameter(EMAIL, email)
                     .setParameter(PASSWORD, password).build();
 
@@ -74,8 +75,36 @@ public class PizzaAPIs {
             uri = new URIBuilder()
                     .setScheme(uriScheme)
                     .setHost(apiServerHost)
-                    .setPath(usersResource + userId + transactionsResource)
+                    .setPath(apiServerBaseUrl + usersResource + userId + transactionsResource)
                     .setParameter(EMAIL, email).build();
+        }
+        catch (java.net.URISyntaxException ue){
+            ue.printStackTrace();
+        }
+        return uri;
+    }
+
+    public URI getPizzasApi(){
+        URI uri = null;
+        try {
+            uri = new URIBuilder()
+                    .setScheme(uriScheme)
+                    .setHost(apiServerHost)
+                    .setPath(apiServerBaseUrl + pizzasResource).build();
+        }
+        catch (java.net.URISyntaxException ue){
+            ue.printStackTrace();
+        }
+        return uri;
+    }
+
+    public URI getToppingsApi(){
+        URI uri = null;
+        try {
+            uri = new URIBuilder()
+                    .setScheme(uriScheme)
+                    .setHost(apiServerHost)
+                    .setPath(apiServerBaseUrl + toppingsResource).build();
         }
         catch (java.net.URISyntaxException ue){
             ue.printStackTrace();
