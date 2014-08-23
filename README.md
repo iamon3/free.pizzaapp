@@ -1,5 +1,5 @@
-Free Pizza App
-=====================
+Pizza APP Overview
+==================
 This is the application server, also, the client of the free pizza API server (refer link mentioned below)
 
       https://github.com/iamon3/free.apis
@@ -12,7 +12,8 @@ Pre-Requisite:
     - Apache Tomcat      (I tested with apache-tomcat-7.0.52)
     - Free Pizza API server 
     
-Set up project :
+A] Set up APP server in a sandbox :
+-----------------------------------
   
   1) Clone the project
   
@@ -39,14 +40,19 @@ Set up project :
 
        $ sudo vi tail -f ../logs/catalina.out
      
-     
-  6)  Test the web app
+  6) Set up and Boot up the API server. Refer   
+  
+      https://github.com/iamon3/free.apis
+      
+  7)  Test the APP server
+      
       Open your favorite browser and enter following URL
       
        http://localhost:8080/freepizzaapp
   
-Live Demo :
+B] Live Demo :
+--------------
 
-  I hav deployed the free instance in cloudbees.com (cloudbees cloud). The same can be tested at the following
+  I have deployed the free instance in cloudbees.com (cloudbees cloud). The same can be tested at the following
 
        http://free-pizza-app.free-org.cloudbees.net
