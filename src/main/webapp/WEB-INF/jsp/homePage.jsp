@@ -86,7 +86,6 @@
     }
 
     function parsePizzasToppingsResponse(json_obj, toppings_json_obj){
-
        var toppings_output = "<td><table><tr>";
        for (var j in toppings_json_obj){
           toppings_output+= "<td><div>"
@@ -96,12 +95,14 @@
        toppings_output += "</tr></table></td></tr>";
 
 
-       var output="<br/><form method='post' action='signIn.html' modelAttribute='transaction'><table style=\"width:300px\"> <tr> <td><b>Select your choice of Pizzas</b></td> <td><b>Ingredients</b></td> <td><b>Price</b></td> <td><b>Toppings</b></td></tr>";
+       var output="<h2>Menu</h2><br/><form method='post' action='signIn.html' modelAttribute='transaction'><table style=\"width:300px\"> <tr> <td><b>Select your choice of Pizzas</b></td> <td><b>Ingredients</b></td> <td><b>Price</b></td> <td><b>Toppings</b></td></tr>";
        for (var i in json_obj)
          {
            output+="<div><tr><td><div><input type='checkbox' name=\'" + json_obj[i].id + "\' value = \'"+json_obj[i].id+"\' >" + json_obj[i].name + "</input></div></td><td><div>" + json_obj[i].description + "</div></td><td>" + json_obj[i].price + "</td>" + toppings_output + "</div>";
          }
-       output+="</table></form>";
+
+       String submitButton = "<tr><td><input type=\'submit\' value=\'<spring:message code=\'label.order\'/>\'/></td></tr>";
+       output += submitButton + "</table></form>";
        return output;
     }
 
@@ -110,8 +111,9 @@
 <body>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <div>Wel come <c:out value="${sessionScope.email}"/> | <a href="${contextPath}/signOut">Sign Out</a></div><br/><br/>
-<h2>Menu</h2>
-<div id="myDiv"></div>
+<div id="myDiv">
+<h2>Menu. Just a moment. Loading ....</h2>
+</div>
 <script>
 loadDoc();
 </script>

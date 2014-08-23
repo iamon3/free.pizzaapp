@@ -48,10 +48,10 @@ public class UserService {
         return savedTransaction;
     }
 
-    public List<Transaction> fetchUserTransaction(String email, String id, Transaction transaction){
+    public List<Transaction> fetchUserTransaction(String email, String userId){
         List<Transaction> userTransactions = null;
         try {
-            userTransactions = userHttpClient.getUserTransactions(email, id);
+            userTransactions = userHttpClient.getUserTransactions(email, userId);
         }catch (IOException e) {
             e.printStackTrace();
         }

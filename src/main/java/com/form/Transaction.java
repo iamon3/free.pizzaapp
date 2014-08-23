@@ -10,6 +10,7 @@ public class Transaction {
     private String userId;
     private String timestamp;
     private List<Pizza> pizzas;
+    private Integer price;
 
     public String getId() {
         return id;
@@ -41,5 +42,13 @@ public class Transaction {
 
     public void setPizzas(List<Pizza> pizzas) {
         this.pizzas = pizzas;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 }
