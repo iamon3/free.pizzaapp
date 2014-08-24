@@ -75,7 +75,7 @@ public class PizzaAPIs {
             uri = new URIBuilder()
                     .setScheme(uriScheme)
                     .setHost(apiServerHost)
-                    .setPath(apiServerBaseUrl + usersResource + userId + transactionsResource)
+                    .setPath(apiServerBaseUrl + usersResource + URL_PATH_SEPARATOR + userId + transactionsResource)
                     .setParameter(EMAIL, email).build();
         }
         catch (java.net.URISyntaxException ue){

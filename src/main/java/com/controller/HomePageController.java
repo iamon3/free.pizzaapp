@@ -31,7 +31,7 @@ public class HomePageController {
     public String getSignInForm(HttpServletRequest httpServletRequest, Map<String, Object> map){
         String email = (String) httpServletRequest.getSession().getAttribute("email");
         String id = (String) httpServletRequest.getSession().getAttribute("id");
-        map.put("email", httpServletRequest.getSession().getAttribute("email"));
+       // map.put("email", httpServletRequest.getSession().getAttribute("email"));
         map.put("pizzasAPI",pizzaAPIs.getPizzasApi());
         map.put("toppingsAPI",pizzaAPIs.getToppingsApi());
         return "homePage";

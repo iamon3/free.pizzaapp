@@ -21,7 +21,7 @@ import com.util.PizzaAPIs;
  */
 public class AuthenticationFilter implements Filter {
 
-    private String[] restrictedPageUrls = new String[]{"/homePage", "/signOut"}; //"/signUp","/signIn",
+    private String[] restrictedPageUrls = new String[]{"/homePage", "/transactions", "/signOut"}; //"/signUp","/signIn",
 
    // private final static String APP_SERVER_END_POINT = "http://localhost:8080;
     private final static String APP_BASE_URL = "/freepizzaapp";

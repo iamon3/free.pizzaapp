@@ -34,6 +34,7 @@
 
     var pizzasAPI = '<c:out value="${pizzasAPI}"/>';
     var toppingsAPI = '<c:out value="${toppingsAPI}"/>';
+    var transactions = '<c:out value="${pageContext.request.contextPath}"/>' + '/transactions';
 
     function loadDoc(){
         var pizzaResponse = loadXMLDoc1(loadXMLDoc2);
@@ -86,23 +87,24 @@
     }
 
     function parsePizzasToppingsResponse(json_obj, toppings_json_obj){
-       var toppings_output = "<td><table><tr>";
-       for (var j in toppings_json_obj){
-          toppings_output+= "<td><div>"
-          + "<input type='checkbox' name=\'"+toppings_json_obj[j].id +"\' value =\'"+toppings_json_obj[j].id +"\' > "
-          + toppings_json_obj[j].name + "</input> $" + toppings_json_obj[j].price +"</div></td>";
-       }
-       toppings_output += "</tr></table></td></tr>";
 
 
-       var output="<h2>Menu</h2><br/><form method='post' action='signIn.html' modelAttribute='transaction'><table style=\"width:300px\"> <tr> <td><b>Select your choice of Pizzas</b></td> <td><b>Ingredients</b></td> <td><b>Price</b></td> <td><b>Toppings</b></td></tr>";
+       var output="<div><b>Menu</b> | <a href=\'"+transactions+"\'>Transaction History</a> </div><br/><form method='post' action='transactions' modelAttribute='transaction'><table style=\"width:300px\"> <tr> <th>Select your choice of Pizzas</th> <th>Ingredients</th> <th>Price</th> <td>Toppings</th></tr>";
        for (var i in json_obj)
          {
-           output+="<div><tr><td><div><input type='checkbox' name=\'" + json_obj[i].id + "\' value = \'"+json_obj[i].id+"\' >" + json_obj[i].name + "</input></div></td><td><div>" + json_obj[i].description + "</div></td><td>" + json_obj[i].price + "</td>" + toppings_output + "</div>";
+           output+="<div><tr><td><div><input type='checkbox' name=\'" + json_obj[i].id + "\' value = \'"+json_obj[i].id+"\' >" + json_obj[i].name + "</input></div></td><td><div>" + json_obj[i].description + "</div></td><td>" + json_obj[i].price + "</td>";
+                  var toppings_output = "<td><table><tr>";
+                  for (var j in toppings_json_obj){
+                     toppings_output+= "<td><div>"
+                     + "<input type='checkbox' name=\'"+ json_obj[i].id + "\' value =\'"+ json_obj[i].id + "#"+ json_obj[i].name + "#"+json_obj[i].price+"#" + toppings_json_obj[j].id + "#"+ toppings_json_obj[j].name + "#"+ toppings_json_obj[j].price+"#" +json_obj[i].description+"\' > "
+                     + toppings_json_obj[j].name + "</input> $" + toppings_json_obj[j].price +"</div></td>";
+                  }
+                  toppings_output += "</tr></table></td></tr>";
+            output += toppings_output + "</div>"
          }
 
-       String submitButton = "<tr><td><input type=\'submit\' value=\'<spring:message code=\'label.order\'/>\'/></td></tr>";
-       output += submitButton + "</table></form>";
+       var submitButton = "<br/><input type=\'submit\' style=\'height: 60px; width: 100px\' value=\'Save\'/>";
+       output += "</table>" + submitButton + "</form>";
        return output;
     }
 

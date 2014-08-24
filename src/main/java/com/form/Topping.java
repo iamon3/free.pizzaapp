@@ -7,7 +7,7 @@ public class Topping {
 
     private String id;
     private String name;
-    private Integer price;
+    private Integer price = 1;
 
     public Topping(String id, String name, Integer price){
         this.id = id;

@@ -11,8 +11,8 @@ public class Pizza {
     private String id;
     private String name;
     private String description;
-    List<Topping> toppings;
-    private Integer price;
+    List<Topping> toppings = new ArrayList<Topping>();;
+    private Integer price = 0;
 
     public Pizza(){
 
@@ -27,8 +27,9 @@ public class Pizza {
     }
 
     public void addTopping(Topping topping){
-        this.price += topping.getPrice();
         toppings.add(topping);
+        this.price += topping.getPrice();
+
     }
 
     public List<Topping> getToppings() {
