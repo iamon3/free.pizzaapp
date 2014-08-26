@@ -27,7 +27,9 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <h1>Hurry Up!! Pizza is ready.</h1><br/><br/>
 <h2>Sign In</h2>
-
+<c:if test="${not empty notFound}">
+   <label color="red"><font color="red"> ERROR : </font>User not found. Either you have not signed up or entered invalid email / password</label><br/><br/>
+</c:if>
 <form:form method="post" action="signIn" modelAttribute="user">
 
 	<table>

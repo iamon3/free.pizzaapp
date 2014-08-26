@@ -3,6 +3,7 @@ package com.service;
 import java.io.IOException;
 import java.util.List;
 
+import com.exceptions.ResourceNotFoundException;
 import com.form.User;
 import com.form.Transaction;
 import com.util.clients.UserHttpClient;
@@ -28,11 +29,12 @@ public class UserService {
         return signedUpUser;
     }
 
-    public User  authenticateUser(User user){
+    public User  authenticateUser(User user) throws ResourceNotFoundException {
         User signedInUser = null;
         try {
             signedInUser = userHttpClient.authenticateUser(user.getEmail(), user.getPassword());
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         return signedInUser;

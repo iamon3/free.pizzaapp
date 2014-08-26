@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -31,10 +32,18 @@ public class SignInController {
 
     @RequestMapping(value = "/signIn", method=RequestMethod.POST)
     public String signInUser(HttpServletRequest httpServletRequest, Map<String, Object> map, @ModelAttribute("user") User user, BindingResult result){
-        User authenticatedUser = userService.authenticateUser(user);
-        //map.put("email", authenticatedUser.getEmail());
-        httpServletRequest.getSession().setAttribute("email", authenticatedUser.getEmail());
-        httpServletRequest.getSession().setAttribute("id", authenticatedUser.getId());
+        User authenticatedUser = null;
+        try {
+            authenticatedUser = userService.authenticateUser(user);
+            //map.put("email", authenticatedUser.getEmail());
+            httpServletRequest.getSession().setAttribute("email", authenticatedUser.getEmail());
+            httpServletRequest.getSession().setAttribute("id", authenticatedUser.getId());
+
+        }
+        catch (ResourceNotFoundException re){
+            map.put("notFound", re.toString());
+            return "signIn";
+        }
         return "redirect:/homePage";
     }
 }

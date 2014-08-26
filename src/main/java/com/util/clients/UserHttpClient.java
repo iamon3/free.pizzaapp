@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.exceptions.ResourceNotFoundException;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.HttpEntity;
@@ -97,7 +98,7 @@ public class UserHttpClient {
         return signedUpUser;
     }
 
-    public User authenticateUser(String email, String password) throws IOException {
+    public User authenticateUser(String email, String password) throws IOException, ResourceNotFoundException {
         User authenticatedUser = null;
         String responseContent = "";
         CloseableHttpClient httpClient = getHttpClient();
@@ -126,6 +127,9 @@ public class UserHttpClient {
                 if(null != responseStream){
                     authenticatedUser = new ObjectMapper().readValue(responseStream, User.class);
                 }
+            }
+            if(HTTP_STATUS_RESOURCE_NOT_FOUND == response.getStatusLine().getStatusCode()){
+                throw new ResourceNotFoundException("User with the mentioned email : " +email + " not found.");
             }
         } catch (IOException e) {
             e.printStackTrace();
