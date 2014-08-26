@@ -18,6 +18,6 @@ public class WelcomePageController {
     @RequestMapping("")
     public String getIndexPage(Map<String, Object> map){
         map.put("user", new com.form.User());
-        return "signIn";
+        return "signUp";
     }
 }
