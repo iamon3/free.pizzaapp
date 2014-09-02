@@ -89,7 +89,7 @@
     function parsePizzasToppingsResponse(json_obj, toppings_json_obj){
 
 
-       var output="<div><b>Menu</b> | <a href=\'"+transactions+"\'>Transaction History</a> </div><br/><form method='post' action='transactions' modelAttribute='transaction'><table style=\"width:300px\"> <tr> <th>Select your choice of Pizzas</th> <th>Ingredients</th> <th>Price</th> <td>Toppings</th></tr>";
+       var output="<div><b>Menu</b> | <a href=\'"+transactions+"\'>Transaction History</a> </div><br/><form method='post' action='transactions' modelAttribute='transaction'><table style=\"width:300px\"> <tr> <th>Select your choice of Pizzas</th> <th>Ingredients</th> <th>Price</th> <th>Toppings</th></tr>";
        for (var i in json_obj)
          {
            output+="<div><tr><td><div><input type='checkbox' name=\'" + json_obj[i].id + "\' value = \'"+json_obj[i].id+"\' >" + json_obj[i].name + "</input></div></td><td><div>" + json_obj[i].description + "</div></td><td>" + json_obj[i].price + "</td>";
