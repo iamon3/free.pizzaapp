@@ -78,7 +78,7 @@ public class AuthenticationFilter implements Filter {
     }
 
     private boolean isAuthenticationResource(String requestUri){
-        if(requestUri.contains("/signUp") || requestUri.contains("/signIn")){
+        if(requestUri.contains("/signUp") || requestUri.contains("/signIn") || requestUri.equals("/freepizzaapp/") || requestUri.equals("/")){
             return true;
         }
         return false;
