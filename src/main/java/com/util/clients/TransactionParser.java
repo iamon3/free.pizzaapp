@@ -35,17 +35,18 @@ public class TransactionParser {
             String    name   = (String)entry.getKey() ;
             String[]  values = (String[])entry.getValue();
             System.out.println("Name:   " + name + " Values : " + values + "\n");
-            if(name.equals(values[0])){
+            if(values[0].split("#").length == 3){ //name 1 values => 1#Plane#8,
                 if(isTransaction == false) { isTransaction = true;}
                 Pizza pizza = new Pizza();
                 pizza.setId(name);
                 String[] tokens;
-                if(1 < values.length){
-                    tokens =  values[1].split("#");
+                if(1 <= values.length){
+                    int valueRank = ((1 == values.length)?0:1);
+                    tokens =  values[valueRank].split("#");
                     pizza.setId(tokens[0]);
                     pizza.setName(tokens[1]);
                     pizza.setPrice(Integer.valueOf(tokens[2]));
-                    pizza.setDescription(tokens[6]);
+                    if(valueRank  == 1)pizza.setDescription(tokens[6]);
                 }
                 for ( int i = 1; i < values.length ; ++i )
                 {
