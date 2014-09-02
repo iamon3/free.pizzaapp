@@ -1,0 +1,22 @@
+body {
+	font-family: sans-serif;
+}
+
+.data, .data td {
+	border-collapse: collapse;
+	width: 100%;
+	border: 1px solid #aaa;
+	margin: 2px;
+	padding: 2px;
+}
+
+.data th {
+	font-weight: bold;
+	background-color: #5C82FF;
+	color: white;
+}
+
+table,th,td {
+    border:1px solid black;
+    border-collapse:collapse;
+}
